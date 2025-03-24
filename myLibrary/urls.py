@@ -21,4 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('users/', include('users.urls')),  # 包含users应用的URL配置
     path('', include('users.urls')),     # 包含主应用的URL配置
+    path('', include('home.urls')),
 ]

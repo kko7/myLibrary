@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles", #django处理静态文件
     "users.apps.UsersConfig",
+    "home",
 ]
 
 MIDDLEWARE = [
