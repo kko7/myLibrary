@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图书列表</title>
+    <title>书易通网上图书馆</title>
     <!-- 核心样式 -->
     <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <!-- 图标库 -->
@@ -44,17 +44,28 @@
         </button>
 
         <!-- 导航菜单项 -->
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto">  <!-- ms-auto实现右对齐 -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">
+                    <a class="nav-link" href="{% url 'index' %}">
                         <i class="bi bi-house-door"></i> 主页
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/books/">
+                    <a class="nav-link active" href="/books/">
                         <i class="bi bi-book"></i> 借阅图书
                     </a>
+                </li>
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'profile' %}">
+                        <i class="bi bi-person-circle"></i> 用户
+                    </a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="bi bi-person"></i> 用户
+                    </a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
@@ -71,6 +82,7 @@
         <a href="#" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> 借阅图书
         </a>
+
     </div>
 
     <form method="GET" class="mb-5 shadow">
@@ -80,7 +92,7 @@
             </span>
             <input type="text" name="q" class="form-control form-control-lg"
                    placeholder="搜索书名、作者、出版社或ISBN...">
-            <button class="btn btn-primary" type="submit">高级搜索</button>
+            <button class="btn btn-primary" type="submit">搜索</button>
         </div>
     </form>
 
