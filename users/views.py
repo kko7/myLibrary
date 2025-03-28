@@ -10,7 +10,7 @@ def custom_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(reverse('home'))  # 登录成功后重定向到主页
+            return redirect(reverse('index'))  # 登录成功后重定向到主页
         else:
             messages.error(request, '用户名或密码错误')
     return render(request, 'login.html')

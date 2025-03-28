@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图书管理系统主页</title>
     <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .hero-section {
             background: linear-gradient(45deg, #4e73df, #224abe);
@@ -25,12 +26,23 @@
             <img src="{% static 'book-icon.png' %}" alt="Logo" width="30" class="me-2">
             图书管理系统
         </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="#">主页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/books/">图书管理</a></li>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">  <!-- ms-auto实现右对齐 -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        <i class="bi bi-house-door"></i> 主页
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books/">
+                        <i class="bi bi-book"></i> 借阅图书
+                    </a>
+                </li>
             </ul>
         </div>
+    </div>
+
     </div>
 </nav>
 
@@ -92,27 +104,26 @@
         <!-- 卡片3：新书推荐 -->
         <div class="col-md-6 col-lg-4">
             <div class="card feature-card h-100 shadow">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <i class="bi bi-star-fill text-warning me-2"></i> 新书速递
-                    </h5>
-                    <div class="row g-2">
-                        <div class="col-4">
-                            <div class="ratio ratio-1x1 bg-light rounded">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-book text-muted fs-4"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <h6>《我的职业是小说家》</h6>
-                            <p class="text-muted small">十二章肺腑之言</p>
+                <div class="row g-0 h-100">
+                    <!-- 卡片左侧：封面图片 -->
+                    <div class="col-4 d-flex align-items-center">
+                        <img src="{% static 'bookcover.jpg' %}" class="img-fluid rounded-start" alt="新书封面">
+                    </div>
+                    <!-- 卡片右侧：书籍信息 -->
+                    <div class="col-8">
+                        <div class="card-body d-flex flex-column justify-content-center h-100">
+                            <h5 class="card-title">
+                                <i class="bi bi-star-fill text-warning me-2"></i> 新书速递
+                            </h5>
+                            <h6 class="card-subtitle mb-2">《我的职业是小说家》</h6>
+                            <p class="card-text text-muted small">十二章肺腑之言</p>
                             <span class="badge bg-success">可借阅</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- 卡片4：服务指引 -->
         <div class="col-md-6 col-lg-4">
             <div class="card feature-card h-100 shadow">
@@ -167,12 +178,14 @@
                         <i class="bi bi-lightning-charge-fill text-warning me-2"></i> 快捷服务
                     </h5>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="bi bi-search"></i> 图书检索
+                        <a href="{% url 'book_list' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-search"></i> 检索图书
                         </a>
+
                         <a href="#" class="btn btn-outline-success">
                             <i class="bi bi-person"></i> 我的借阅
                         </a>
+
                         <a href="#" class="btn btn-outline-info">
                             <i class="bi bi-clock-history"></i> 借阅历史
                         </a>
