@@ -49,7 +49,7 @@
     <p><strong>出版社:</strong> {{ book.publisher }}</p>
     <p><strong>内容简介:</strong> {{ book.content_summary|default:"暂无简介" }}</p>
     <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
-    <a href="{% url 'index' %}" class="btn btn-secondary">返回主页</a>
+    <a href="{% url 'book_list' %}" class="btn btn-secondary">返回列表</a>
 </div>
 
 <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
