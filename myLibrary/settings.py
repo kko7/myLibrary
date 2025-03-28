@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles", #django处理静态文件
     "users.apps.UsersConfig",
     "home",
+    "books",
 ]
 
 MIDDLEWARE = [

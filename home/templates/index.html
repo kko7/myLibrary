@@ -1,63 +1,202 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="h-100">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>图书管理系统主页</title>
-  <!-- 引入本地 Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书管理系统主页</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <style>
+        .hero-section {
+            background: linear-gradient(45deg, #4e73df, #224abe);
+            color: white;
+            border-radius: 1rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-  <!-- 导航栏 -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">图书管理系统</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">主页</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">图书</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">借阅</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">通知</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">用户</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- 主体内容 -->
-  <main class="container mt-4">
-    <div class="row">
-      <div class="col">
-        <h1 class="mb-4">欢迎来到图书管理系统</h1>
-        <p>这是您的主页。通过导航栏，您可以访问系统的各个功能模块。</p>
-        <p>请根据需要选择相应的操作。</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- 页脚 -->
-  <footer class="bg-light text-center py-3 mt-4">
+<body class="d-flex flex-column h-100">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg">
     <div class="container">
-      <span class="text-muted">© 2025 图书管理系统</span>
+        <a class="navbar-brand fw-bold" href="#">
+            <img src="{% static 'book-icon.png' %}" alt="Logo" width="30" class="me-2">
+            图书管理系统
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">主页</a></li>
+                <li class="nav-item"><a class="nav-link" href="/books/">图书管理</a></li>
+            </ul>
+        </div>
     </div>
-  </footer>
+</nav>
 
-  <!-- 引入本地 Bootstrap JS Bundle -->
-  <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+<main class="container flex-shrink-0">
+    <div class="hero-section p-5 my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">欢迎来到书易通网上图书馆</h1>
+                <p class="lead">👇点击搜索 借阅想看的书</p>
+
+                <form action="{% url 'book_list' %}" method="get" class="mt-4">
+                    <div class="input-group input-group-lg">
+                        <input type="text" name="q" class="form-control"
+                               placeholder="输入关键词搜索图书...">
+                        <button class="btn btn-light" type="submit">
+                            <i class="bi bi-search"></i> 立即搜索
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <!-- 卡片1：收录图书 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card feature-card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-bookshelf me-2"></i> 海量藏书
+                    </h5>
+                    <p class="card-text">收录多册中外文图书</p>
+                    <div class="text-end">
+                        <span class="badge bg-info">每日更新</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 卡片2：借阅排行 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card feature-card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-graph-up me-2"></i> 本周热门
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>《红楼梦》</span>
+                            <span class="text-primary">128次借阅</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>《1984》</span>
+                            <span class="text-primary">115次借阅</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 卡片3：新书推荐 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card feature-card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-star-fill text-warning me-2"></i> 新书速递
+                    </h5>
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <div class="ratio ratio-1x1 bg-light rounded">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-book text-muted fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <h6>《我的职业是小说家》</h6>
+                            <p class="text-muted small">十二章肺腑之言</p>
+                            <span class="badge bg-success">可借阅</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 卡片4：服务指引 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card feature-card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-question-circle me-2"></i> 借阅指南
+                    </h5>
+                    <div class="accordion accordion-flush" id="guideAccordion">
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#guideOne">
+                                    如何查找图书？
+                                </button>
+                            </h6>
+                            <div id="guideOne"
+                                 class="accordion-collapse collapse"
+                                 data-bs-parent="#guideAccordion">
+                                <div class="accordion-body">
+                                    使用顶部搜索栏输入关键词，支持书名/作者/ISBN查询
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#guideTwo">
+                                    借阅期限多久？
+                                </button>
+                            </h6>
+                            <div id="guideTwo"
+                                 class="accordion-collapse collapse"
+                                 data-bs-parent="#guideAccordion">
+                                <div class="accordion-body">
+                                    每人最多借阅3本书，每本书期限30天，至多续借1次
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 卡片5：快速入口 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card feature-card h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i> 快捷服务
+                    </h5>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-outline-primary">
+                            <i class="bi bi-search"></i> 图书检索
+                        </a>
+                        <a href="#" class="btn btn-outline-success">
+                            <i class="bi bi-person"></i> 我的借阅
+                        </a>
+                        <a href="#" class="btn btn-outline-info">
+                            <i class="bi bi-clock-history"></i> 借阅历史
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto bg-light py-4">
+    <div class="container text-center">
+        <div class="social-links mb-2">
+            <a href="#" class="text-decoration-none me-3">
+                <i class="bi bi-github"></i>
+            </a>
+            <a href="#" class="text-decoration-none">
+                <i class="bi bi-envelope"></i>
+            </a>
+        </div>
+        <span class="text-muted">© 书易通 足不出户 一触即达 </span>
+    </div>
+</footer>
+
+<script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

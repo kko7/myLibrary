@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书列表</title>
+    <!-- 核心样式 -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <!-- 图标库（新增这行） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* 自定义悬停效果 */
+        .hover-shadow:hover {
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+        /* 卡片标题截断 */
+        .text-truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+<!-- 完整导航栏代码开始 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg">
+    <div class="container">  <!-- 使用container控制内容宽度 -->
+        <!-- 品牌LOGO -->
+        <a class="navbar-brand fw-bold" href="/">
+            <img src="{% static 'book-icon.png' %}"
+                 alt="系统LOGO"
+                 width="30"
+                 class="me-2">
+            图书管理系统
+        </a>
+
+        <!-- 移动端折叠按钮 -->
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 导航菜单项 -->
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">  <!-- ms-auto实现右对齐 -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        <i class="bi bi-house-door"></i> 主页
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books/">
+                        <i class="bi bi-book"></i> 图书管理
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- 导航栏代码结束 -->
+
+<!-- 页面其他内容 -->
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 fw-bold text-primary">
+            <i class="bi bi-book me-2"></i>图书列表
+        </h1>
+        <a href="#" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> 新增图书
+        </a>
+    </div>
+
+    <form method="GET" class="mb-5 shadow">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text" name="q" class="form-control form-control-lg"
+                   placeholder="搜索书名、作者、出版社或ISBN...">
+            <button class="btn btn-primary" type="submit">高级搜索</button>
+        </div>
+    </form>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for book in books %}
+        <div class="col">
+            <div class="card h-100 shadow-sm hover-shadow">
+                <div class="card-header bg-primary text-white">
+                    ISBN: {{ book.ISBN }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-truncate">{{ book.title }}</h5>
+                    <div class="text-muted mb-3">
+                        <i class="bi bi-person"></i> {{ book.author }}
+                    </div>
+                    <div class="d-grid">
+                        <a href="{% url 'book_detail' book.id %}"
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-info-circle"></i> 查看详情
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 分页组件 -->
+    <nav class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#">上一页</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">下一页</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
