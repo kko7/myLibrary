@@ -22,8 +22,11 @@
 <body class="d-flex flex-column h-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">
-            <img src="{% static 'book-icon.png' %}" alt="Logo" width="30" class="me-2">
+        <a class="navbar-brand fw-bold" href="{% url 'index' %}">
+            <img src="{% static 'book-icon.png' %}"
+                 alt="系统LOGO"
+                 width="30"
+                 class="me-2">
             图书管理系统
         </a>
 
@@ -205,22 +208,22 @@
             </div>
         </div>
     </div>
-</main>
+    </main>
 
-<footer class="footer mt-auto bg-light py-4">
-    <div class="container text-center">
-        <div class="social-links mb-2">
-            <a href="#" class="text-decoration-none me-3">
-                <i class="bi bi-github"></i>
-            </a>
-            <a href="#" class="text-decoration-none">
-                <i class="bi bi-envelope"></i>
-            </a>
+    <footer class="footer mt-auto bg-light py-4">
+        <div class="container text-center">
+            <div class="social-links mb-2">
+                <a href="#" class="text-decoration-none me-3">
+                    <i class="bi bi-github"></i>
+                </a>
+                <a href="#" class="text-decoration-none">
+                    <i class="bi bi-envelope"></i>
+                </a>
+            </div>
+            <span class="text-muted">© 书易通 足不出户 一触即达 </span>
         </div>
-        <span class="text-muted">© 书易通 足不出户 一触即达 </span>
-    </div>
-</footer>
+    </footer>
 
-<script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
