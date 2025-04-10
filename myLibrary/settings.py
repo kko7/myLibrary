@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "home",
     "books",
+    "borrow",
 ]
 
 MIDDLEWARE = [

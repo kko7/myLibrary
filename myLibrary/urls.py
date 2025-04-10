@@ -22,4 +22,5 @@ urlpatterns = [
     path('users/', include('users.urls')),  # 包含users应用的URL配置
     path('', include('home.urls')),
     path("books/", include("books.urls")),
+    path('borrow/', include('borrow.urls', namespace='borrow')),
 ]

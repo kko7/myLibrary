@@ -3,12 +3,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>书易通网上图书馆 · {{ book.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>借阅确认 · {{ book.title }}</title>
   <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body>
+<body class="bg-light">
+
+  <!-- 导航栏 -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg">
     <div class="container">
       <a class="navbar-brand fw-bold" href="{% url 'index' %}">
@@ -26,31 +28,38 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'book_list' %}">
+            <a class="nav-link" href="{% url 'book_list' %}">
               <i class="bi bi-book"></i> 图书管理
             </a>
+          </li>
+          <li class="nav-item">
+            {% if request.user.is_authenticated %}
+              <a class="nav-link" href="{% url 'profile' %}">
+                <i class="bi bi-person-circle"></i> 用户
+              </a>
+            {% else %}
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="bi bi-person"></i> 用户
+              </a>
+            {% endif %}
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <div class="container mt-4">
-    <h2>{{ book.title }}</h2>
-    <p><strong>作者:</strong> {{ book.author }}</p>
-    <p><strong>译者:</strong> {{ book.translator|default:"无" }}</p>
-    <p><strong>出版社:</strong> {{ book.publisher }}</p>
-    <p><strong>内容简介:</strong> {{ book.content_summary|default:"暂无简介" }}</p>
-    <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
-    <div class="mt-4">
-      <!-- 借阅本书 按钮 -->
-      <a href="{% url 'borrow:borrow_book' book.id %}" class="btn btn-success me-2">
-        <i class="bi bi-cart-plus"></i> 借阅本书
-      </a>
-      <!-- 返回列表 按钮 -->
-      <a href="{% url 'book_list' %}" class="btn btn-secondary">
-        <i class="bi bi-arrow-left"></i> 返回列表
-      </a>
+  <!-- 借阅确认主体 -->
+  <div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 500px;">
+      <div class="card-body text-center">
+        <i class="bi bi-check-circle-fill text-success fs-1"></i>
+        <h3 class="mt-3">借阅成功！</h3>
+        <p class="mt-2">您已成功借阅《{{ book.title }}》。</p>
+        <p>请于 <strong>{{ due_date }}</strong> 前归还。</p>
+        <a href="{% url 'borrow:record_list' %}" class="btn btn-primary mt-3">
+          <i class="bi bi-journal-bookmark"></i> 查看我的借阅记录
+        </a>
+      </div>
     </div>
   </div>
 

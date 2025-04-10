@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>我的借阅记录</title>
+  <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+</head><body>
+
+<div class="container mt-4">
+  <h2>我的借阅记录</h2>
+  <table class="table">
+    <thead><tr>
+      <th>图书</th><th>借阅日期</th><th>到期日期</th><th>状态</th><th>操作</th>
+    </tr></thead>
+    <tbody>
+    {% for r in records %}
+      <tr>
+        <td>{{ r.book.title }}</td>
+        <td>{{ r.borrow_date }}</td>
+        <td>{{ r.due_date }}</td>
+        <td>
+          {% if r.is_returned %}已归还{% else %}未归还{% endif %}
+        </td>
+        <td>
+          {% if not r.is_returned %}
+          <a href="{% url 'borrow:return_book' r.pk %}" class="btn btn-sm btn-warning">归还</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+</body></html>
