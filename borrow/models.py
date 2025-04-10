@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from books.models import Book
 from datetime import timedelta, date
+from django.utils import timezone
 
 
 class BorrowRecord(models.Model):
@@ -18,7 +19,8 @@ class BorrowRecord(models.Model):
         if not self.borrow_date:
             self.borrow_date = date.today()
         # 自动计算 due_date 为 borrow_date + 30 天
-        self.due_date = self.borrow_date + timedelta(days=30)
+        self.due_date = timezone.now().date() + timedelta(days=30)
+        #self.due_date = self.borrow_date + timedelta(days=30)
         super().save(*args, **kwargs)
 
     def _current_date(self):
