@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-
 
 class CustomUser(AbstractUser):
     # 用户类型枚举
@@ -26,7 +24,6 @@ class CustomUser(AbstractUser):
         blank=True,
         help_text=_('用户的身份证号码')
     )
-
 
     email = models.EmailField(
         _('电子邮箱'),
@@ -116,12 +113,3 @@ class CustomUser(AbstractUser):
         self.is_superuser = False
         self.admin_level = 'none'
         self.save()
-
-class UserActionLog(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True
-    )
-    action = models.CharField(max_length=100)
-    timestamp = models.DateTimeField(auto_now_add=True)

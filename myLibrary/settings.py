@@ -26,12 +26,15 @@ SECRET_KEY = "django-insecure-n^7_zy%_85ng4@8&ek=i23#bt2sfsqm9l4ci-5w(h=y()#kcqq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "simpleui",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles", #django处理静态文件
     "users.apps.UsersConfig",
+    "myLibrary",
     "home",
     "books",
     "borrow",
@@ -116,9 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "zh-Hans"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Shanghai"
 
 USE_I18N = True
 
@@ -140,5 +144,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/users/login/'
+LOGIN_URL = '/users/login/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+SIMPLEUI_LOGO = "/static/book-icon.png"

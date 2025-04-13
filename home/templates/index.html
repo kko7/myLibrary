@@ -17,6 +17,28 @@
             transform: translateY(-5px);
             transition: all 0.3s ease;
         }
+.custom-card-link {
+    display: block; /* 将链接转换为块级元素 */
+    text-decoration: none; /* 移除默认的下划线 */
+    color: inherit; /* 继承父元素的颜色 */
+    cursor: pointer; /* 鼠标悬停时显示为手形图标 */
+}
+
+.custom-card-link:hover {
+    text-decoration: none; /* 鼠标悬停时不显示下划线 */
+    background-color: #f8f9fa; /* 鼠标悬停时的背景颜色，可根据需要调整 */
+}
+.custom-link {
+    color: inherit; /* 继承父元素的颜色 */
+    text-decoration: none; /* 移除下划线 */
+    cursor: pointer; /* 鼠标悬停时显示为手形图标 */
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* 鼠标悬停时显示下划线 */
+    color: #808080; /* 鼠标悬停时的颜色 */
+}
+}
     </style>
 </head>
 <body class="d-flex flex-column h-100">
@@ -81,16 +103,18 @@
     </div>
 
     <div class="row g-4 mb-5">
-        <!-- 卡片1：收录图书 -->
+        <!-- 卡片：系统通知 -->
         <div class="col-md-6 col-lg-4">
             <div class="card feature-card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <i class="bi bi-bookshelf me-2"></i> 海量藏书
+                        <i class="bi bi-bell-fill me-2"></i> 系统通知
                     </h5>
-                    <p class="card-text">收录多册中外文图书</p>
+                    <p class="card-text">
+                        4.12 23:00 - 4.13 03:00 系统维护，期间部分功能可能无法使用，不便之处，敬请谅解。
+                    </p>
                     <div class="text-end">
-                        <span class="badge bg-info">每日更新</span>
+                        <span class="badge bg-warning">重要</span>
                     </div>
                 </div>
             </div>
@@ -104,11 +128,11 @@
                     </h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>《红楼梦》</span>
+                            <a href="{% url 'book_detail' id=28 %}" class="custom-link" target="_blank"> 《红楼梦》</a>
                             <span class="text-primary">128次借阅</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>《1984》</span>
+                            <a href="{% url 'book_detail' id=14 %}" class="custom-link" target="_blank">《1984》</a>
                             <span class="text-primary">115次借阅</span>
                         </li>
                     </ul>
@@ -124,16 +148,20 @@
                         <img src="{% static 'bookcover.jpg' %}" class="img-fluid rounded-start" alt="新书封面">
                     </div>
                     <!-- 卡片右侧：书籍信息 -->
+
                     <div class="col-8">
-                        <div class="card-body d-flex flex-column justify-content-center h-100">
-                            <h5 class="card-title">
-                                <i class="bi bi-star-fill text-warning me-2"></i> 新书速递
-                            </h5>
-                            <h6 class="card-subtitle mb-2">《我的职业是小说家》</h6>
-                            <p class="card-text text-muted small">十二章肺腑之言</p>
-                            <span class="badge bg-success">可借阅</span>
-                        </div>
+                        <a href="{% url 'book_detail' id=73 %}" class="custom-card-link" target="_blank">
+                            <div class="card-body d-flex flex-column justify-content-center h-100">
+                                <h5 class="card-title">
+                                    <i class="bi bi-star-fill text-warning me-2"></i> 新书速递
+                                </h5>
+                                <h6 class="card-subtitle mb-2">《我的职业是小说家》</h6>
+                                <p class="card-text text-muted small">十二章肺腑之言</p>
+                                <span class="badge bg-success">可借阅</span>
+                            </div>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -192,15 +220,20 @@
                         <i class="bi bi-lightning-charge-fill text-warning me-2"></i> 快捷服务
                     </h5>
                     <div class="d-grid gap-2">
-                        <a href="{% url 'book_list' %}" class="btn btn-outline-primary">
+                        <a href="{% url 'book_list' %}" class="btn btn-outline-primary" target="_blank">
                             <i class="bi bi-search"></i> 检索图书
                         </a>
 
-                        <a href="#" class="btn btn-outline-success">
-                            <i class="bi bi-person"></i> 我的借阅
+                        <a href="{% if request.user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}"
+                           class="btn btn-outline-success" target="_blank">
+                            {% if request.user.is_authenticated %}
+                            <i class="bi bi-person-circle"></i> 我的资料
+                            {% else %}
+                            <i class="bi bi-person"></i> 登录
+                            {% endif %}
                         </a>
 
-                        <a href="#" class="btn btn-outline-info">
+                        <a href="{% url 'borrow:record_list' %}" class="btn btn-outline-info" target="_blank">
                             <i class="bi bi-clock-history"></i> 借阅历史
                         </a>
                     </div>
@@ -208,22 +241,22 @@
             </div>
         </div>
     </div>
-    </main>
+</main>
 
-    <footer class="footer mt-auto bg-light py-4">
-        <div class="container text-center">
-            <div class="social-links mb-2">
-                <a href="#" class="text-decoration-none me-3">
-                    <i class="bi bi-github"></i>
-                </a>
-                <a href="#" class="text-decoration-none">
-                    <i class="bi bi-envelope"></i>
-                </a>
-            </div>
-            <span class="text-muted">© 书易通 足不出户 一触即达 </span>
+<footer class="footer mt-auto bg-light py-4">
+    <div class="container text-center">
+        <div class="social-links mb-2">
+            <a href="#" class="text-decoration-none me-3">
+                <i class="bi bi-github"></i>
+            </a>
+            <a href="#" class="text-decoration-none">
+                <i class="bi bi-envelope"></i>
+            </a>
         </div>
-    </footer>
+        <span class="text-muted">© 书易通 足不出户 一触即达 </span>
+    </div>
+</footer>
 
-    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
