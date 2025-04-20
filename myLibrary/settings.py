@@ -88,12 +88,12 @@ WSGI_APPLICATION = "myLibrary.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',    # 数据库引擎
-        'NAME': 'django_library', # 数据库名称
-        'HOST': '127.0.0.1', # 数据库地址，本机 ip 地址 127.0.0.1
-        'PORT': 3306, # 端口
-        'USER': 'django_user',  # 数据库用户名
-        'PASSWORD': 'SecurePass123!', # 数据库密码
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_library',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'USER': 'django_user',
+        'PASSWORD': 'SecurePass123!',
     }
 }
 
